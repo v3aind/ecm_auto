@@ -47,7 +47,7 @@ if uploaded_file is not None:
                     characteristic_df.to_excel(writer, sheet_name="Characteristic", index=False)
                     
                     # Save the writer contents to the buffer
-                    writer.save()
+                    writer.close()
                 
                 # Add a download button for the generated file
                 st.download_button(
