@@ -28,11 +28,24 @@ if uploaded_file is not None:
                 project_df["Desc"] = project_df["ProjectName"]
                 project_df = project_df[["ProjectID", "ProjectName", "Desc"]]
 
-                # Create the 'PO' sheet for the current project
-                po_df = input_df[input_df["Project"] == project_name][
-                    ["POReference", "POID", "POName", "PODesc", "Validity", "Keyword"]
-                ]
-                po_df.columns = ["PO Reference", "POID", "PO Name", "PO Desc", "Validity", "Keyword"]
+# Inside the loop for each project_name:
+required_po_columns = ["POReference", "POID", "POName", "PODesc", "Validity", "Keyword"]
+
+# Convert input_df column names to lowercase for case-insensitive comparison
+input_df.columns = [col.lower() for col in input_df.columns] 
+required_po_columns_lower = [col.lower() for col in required_po_columns]
+
+if all(col in input_df.columns for col in required_po_columns_lower):
+    # Create the 'PO' sheet if all required columns are present (case-insensitive)
+    
+    # Get the actual column names from input_df (case-sensitive)
+    actual_po_columns = [col for col in input_df.columns if col.lower() in required_po_columns_lower]  
+    
+    po_df = input_df[input_df["project"] == project_name.lower()][actual_po_columns]  # Using case-insensitive project name
+    po_df.columns = ["PO Reference", "POID", "PO Name", "PO Desc", "Validity", "Keyword"]
+    # ... (rest of the code to populate and write po_df) ...
+else:
+    st.warning(f"Skipping 'PO' sheet for project '{project_name}' due to missing columns.")
                 po_df["Claim AKTIFFI"] = ""
                 po_df["Claim Attack"] = ""
                 po_df["Claim Default"] = ""
