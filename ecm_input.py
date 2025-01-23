@@ -10,6 +10,9 @@ def create_excel(input_df):
     # Create a dictionary to store output Excel files for each project
     output_files = {}
 
+    # Create a progress bar
+    progress_bar = st.progress(0)
+
     for project_name in project_names:
         # Create the 'ProjectName' sheet for the current project
         project_df = input_df[input_df["Project"] == project_name][["Project"]].drop_duplicates()
@@ -40,6 +43,15 @@ def create_excel(input_df):
 
         # Store the BytesIO object in the output_files dictionary
         output_files[project_name] = output
+
+        # Update progress bar
+        progress = (i + 1) / num_projects
+        progress_bar.progress(progress, text=f"Processing project {i + 1} of {num_projects}")
+
+    progress_bar.empty()  # Remove the progress bar when finished
+
+    # Display completion message
+    st.success("All Excel files created successfully!")
 
     return output_files
 
