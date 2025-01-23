@@ -13,7 +13,7 @@ def create_excel(input_df):
     # Create a progress bar
     progress_bar = st.progress(0)
 
-    for project_name in project_names:
+    for i, project_name in enumerate(project_names):
         # Create the 'ProjectName' sheet for the current project
         project_df = input_df[input_df["Project"] == project_name][["Project"]].drop_duplicates()
         project_df.columns = ["ProjectName"]
