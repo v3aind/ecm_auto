@@ -19,8 +19,8 @@ if uploaded_file is not None:
             # Get unique project names
             project_names = input_df["Project"].unique()
             
-                # Iterate through each project name
-                for project_name in project_names:
+	# Iterate through each project name
+        for project_name in project_names:
                 # Create the 'ProjectName' sheet for the current project
                 project_df = input_df[input_df["Project"] == project_name][["Project"]].drop_duplicates()
                 project_df.columns = ["ProjectName"]
