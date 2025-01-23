@@ -21,23 +21,23 @@ if uploaded_file is not None:
             
                 # Iterate through each project name
                 for project_name in project_names:
-                    # Create the 'ProjectName' sheet for the current project
-                    project_df = input_df[input_df["Project"] == project_name][["Project"]].drop_duplicates()
-                    project_df.columns = ["ProjectName"]
-                    # Assign ProjectID from the original "Project" column
-                    project_df["ProjectID"] = project_df["ProjectName"]  
-                    project_df["Desc"] = project_df["ProjectName"]
-                    project_df = project_df[["ProjectID", "ProjectName", "Desc"]]
+                # Create the 'ProjectName' sheet for the current project
+                project_df = input_df[input_df["Project"] == project_name][["Project"]].drop_duplicates()
+                project_df.columns = ["ProjectName"]
+                # Assign ProjectID from the original "Project" column
+                project_df["ProjectID"] = project_df["ProjectName"]  
+                project_df["Desc"] = project_df["ProjectName"]
+                project_df = project_df[["ProjectID", "ProjectName", "Desc"]]
 
-    # Create the 'PO' sheet for the current project
-    po_df = input_df[input_df["Project"] == project_name][
-        ["POReference", "POID", "POName", "PODesc", "Validity", "Keyword"]
-    ]
-    po_df.columns = ["PO Reference", "POID", "PO Name", "PO Desc", "Validity", "Keyword"]
-    po_df["Claim AKTIFFI"] = ""
-    po_df["Claim Attack"] = ""
-    po_df["Claim Default"] = ""
-    po_df["Grace Period"] = ""
+				# Create the 'PO' sheet for the current project
+				po_df = input_df[input_df["Project"] == project_name][
+					["POReference", "POID", "POName", "PODesc", "Validity", "Keyword"]
+				]
+				po_df.columns = ["PO Reference", "POID", "PO Name", "PO Desc", "Validity", "Keyword"]
+				po_df["Claim AKTIFFI"] = ""
+				po_df["Claim Attack"] = ""
+				po_df["Claim Default"] = ""
+				po_df["Grace Period"] = ""
                 
                 # Create the output file name
                 output_file_name = f"ECM_Structure_{project_name}.xlsx"
